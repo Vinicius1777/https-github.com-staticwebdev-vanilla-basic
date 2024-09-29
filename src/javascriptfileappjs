@@ -1,0 +1,44 @@
+// Ensure the DOM is fully loaded before running the script
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById("add-item-btn").addEventListener("click", addItem);
+  
+  function addItem() {
+    const itemName = document.getElementById("item-name").value;
+    const itemQuantity = document.getElementById("item-quantity").value;
+
+    if (itemName === "" || itemQuantity === "") {
+      alert("Please fill out all fields.");
+      return;
+    }
+
+    const inventoryList = document.getElementById("inventory-list");
+
+    // Create a new list item
+    const listItem = document.createElement("li");
+    
+    // Add item name and quantity
+    const itemDetails = document.createElement("span");
+    itemDetails.textContent = `${itemName} - Quantity: ${itemQuantity}`;
+    
+    // Button to remove the item
+    const removeBtn = document.createElement("button");
+    removeBtn.textContent = "Remove";
+    removeBtn.style.backgroundColor = "#dc3545";
+    removeBtn.style.color = "white";
+    removeBtn.style.border = "none";
+    removeBtn.style.padding = "5px 10px";
+    removeBtn.style.cursor = "pointer";
+    removeBtn.addEventListener("click", function() {
+      inventoryList.removeChild(listItem);
+    });
+
+    // Append elements to the list
+    listItem.appendChild(itemDetails);
+    listItem.appendChild(removeBtn);
+    inventoryList.appendChild(listItem);
+
+    // Clear input fields after adding item
+    document.getElementById("item-name").value = "";
+    document.getElementById("item-quantity").value = "";
+  }
+});
